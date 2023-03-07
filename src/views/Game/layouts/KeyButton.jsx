@@ -1,12 +1,12 @@
-import { Text, View } from 'react-native'
+import { Text, View, TouchableHighlight } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 import React from 'react'
 
 const KeyButton = ({ letter = 'A', onPress = null }) => {
   return (
-    <View style={styles.container}>
+    <TouchableHighlight style={styles.container} underlayColor={'rgba(0,0,0,0.2)'} onPress={() => console.log(letter)}>
       <Text style={styles.text}>{letter}</Text>
-    </View>
+    </TouchableHighlight>
   )
 }
 

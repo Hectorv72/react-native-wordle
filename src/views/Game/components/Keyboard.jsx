@@ -1,32 +1,11 @@
-import { View } from 'react-native'
-import { ScaledSheet } from 'react-native-size-matters'
+import { View, Dimensions } from 'react-native'
+import { ScaledSheet, scale } from 'react-native-size-matters'
 import React, { useEffect, useState } from 'react'
-import KeyButton from '../layouts/KeyButton'
-import KeyEraseButton from '../layouts/KeyEraseButton'
-import KeySendButton from '../layouts/KeySendButton'
+import { makeRow } from '../helpers/KeyboardHelpers'
 
-const Keyboard = () => {
+const Keyboard = (onWrite = null) => {
   const [keys, setKeys] = useState([]);
-
-  const makeKey = (letter) => {
-    if (letter === 'erase') {
-      return <KeyEraseButton key={'keyboard-eraser'} />
-    } else if (letter === 'send') {
-      return <KeySendButton key={'keyboard-send'} />
-    } else {
-      return <KeyButton key={`keyboard-letter-${letter}`} letter={letter} />
-    }
-  }
-
-  const makeRow = (letters) => {
-    const list = []
-
-    for (let letter of letters) {
-      list.push(makeKey(letter))
-    }
-
-    return (<View style={styles.row}>{list}</View>)
-  }
+  const [writed, setWrited] = useState('')
 
   const handleMakeKeys = () => {
     const bottomKeys = 'ZXCVBNM'.split('')
@@ -53,11 +32,8 @@ export default Keyboard
 
 const styles = ScaledSheet.create({
   container: {
-    justifyContent: 'center'
-  },
-  row: {
-    flexDirection: 'row',
-    marginBottom: '5@s',
-    justifyContent: 'center'
+    position: 'absolute',
+    top: Dimensions.get('window').height - scale(220),
+    alignSelf: 'center'
   },
 })

@@ -1,13 +1,13 @@
-import { View } from 'react-native'
+import { TouchableHighlight } from 'react-native'
 import { ScaledSheet, scale } from 'react-native-size-matters'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 
 const KeySendButton = () => {
   return (
-    <View style={styles.container}>
+    <TouchableHighlight style={styles.container} underlayColor={'rgba(0,0,0,0.2)'} onPress={() => console.log('send')}>
       <Ionicons name="send" size={scale(14)} color="black" />
-    </View>
+    </TouchableHighlight>
   )
 }
 
