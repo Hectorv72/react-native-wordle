@@ -11,12 +11,10 @@ const Game = () => {
   const [settings, setSettings] = useState({})
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   setSettings({ U: { background: '#32a84c' }, B: { disabled: true } })
-    // }, 300)
+    setTimeout(() => {
+      setSettings({ U: { background: '#32a84c' }, B: { disabled: true } })
+    }, 300)
   }, [])
-
-  const handleSetWord = (word) => setWord(word)
 
   return (
     <View style={styles.block}>
@@ -29,7 +27,7 @@ const Game = () => {
         <WordRow />
       </View>
       <View>
-        <VirtualKeyboard onWrite={handleSetWord} buttonsSettings={settings} />
+        <VirtualKeyboard written={word} setWritten={setWord} buttonsSettings={settings} />
         <View style={styles.buttonContainer}>
           <Button onPress={() => setVerify(true)} title={'verificar'} />
         </View>

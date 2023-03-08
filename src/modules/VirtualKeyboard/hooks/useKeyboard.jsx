@@ -2,24 +2,20 @@ import { useContext } from "react"
 import KeyboardContext from "../contexts/KeyboardContext"
 
 export default () => {
-  const { data, setData } = useContext(KeyboardContext)
-  const { writted, buttons, limit } = data
+  const { written, setWritten, settings } = useContext(KeyboardContext)
+  const { buttons, limit } = settings
 
   const setWrittenText = (text) => {
-    if (writted.length < limit) {
-      const newData = Object.assign({}, data)
-      newData.writted = text
-      setData(newData)
+    if (written.length < limit) {
+      setWritten(text)
     }
   }
 
   const eraseWrittenText = () => {
-    if (writted.length > 0) {
-      const newData = Object.assign({}, data)
-      newData.writted = writted.slice(0, -1)
-      setData(newData)
+    if (written.length > 0) {
+      setWritten(written.slice(0, -1))
     }
   }
 
-  return { writted, buttons, limit, setWrittenText, eraseWrittenText }
+  return { written, buttons, limit, setWrittenText, eraseWrittenText }
 }

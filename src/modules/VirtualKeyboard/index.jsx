@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import KeyboardContext from './contexts/KeyboardContext'
 import { View } from 'react-native'
 import { makeKeyboard } from './helpers/KeyboardHelpers'
 
-const VirtualKeyboard = ({ onWrite = null, limit = 5, buttonsSettings = {} }) => {
 
-  const defaultContextData = {
-    writted: '', // texto escrito con el virtualkeyboard
+const VirtualKeyboard = ({ written, setWritten, limit = 5, buttonsSettings = {} }) => {
+  const defaultSettings = {
     limit,
     buttons: buttonsSettings
     /** buttons props
@@ -16,22 +15,25 @@ const VirtualKeyboard = ({ onWrite = null, limit = 5, buttonsSettings = {} }) =>
      *     disabled: boolean
      *   }
      * }
-     */
+    */
+  }
+  const keys = useMemo(() => makeKeyboard(), [])
+  const [settings, setSettings] = useState(defaultSettings)
+  // const [written, setWritten] = useState('')
+
+  const context = {
+    settings,
+    setSettings,
+    written,
+    setWritten
   }
 
-  const keys = makeKeyboard()
-  const [data, setData] = useState(defaultContextData)
-
   useEffect(() => {
-    onWrite && onWrite(data.writted)
-  }, [data.writted])
-
-  useEffect(() => {
-    setData(prev => ({ ...prev, buttons: buttonsSettings }))
+    setSettings(prev => ({ ...prev, buttons: buttonsSettings }))
   }, [buttonsSettings])
 
   return (
-    <KeyboardContext.Provider value={{ data, setData }}>
+    <KeyboardContext.Provider value={context}>
       <View>
         {keys}
       </View>

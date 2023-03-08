@@ -9,11 +9,11 @@ const defaultSettings = {
 }
 
 const KeyButton = ({ letter = 'A' }) => {
-  const { setWrittenText, writted, buttons } = useKeyboard()
+  const { setWrittenText, written, buttons } = useKeyboard()
   const [settings, setSettings] = useState(defaultSettings)
   const [styles, setStyles] = useState(kbStyles.button)
 
-  const handleOnPress = () => setWrittenText(writted + letter)
+  const handleOnPress = () => setWrittenText(written + letter)
 
   useEffect(() => {
     if (buttons[letter]) {
