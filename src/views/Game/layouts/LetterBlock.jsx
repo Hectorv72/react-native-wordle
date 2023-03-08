@@ -17,9 +17,9 @@ const styles = ScaledSheet.create({
     width: '40@s',
     height: '45@s',
     borderWidth: '2@s',
-    borderColor: 'rgb(200, 200, 200)',
+    borderColor: 'rgb(210, 210, 210)',
     borderRadius: '5@s',
-    backgroundColor: 'rgb(223, 223, 223)',
+    backgroundColor: 'rgb(227, 227, 227)',
     alignItems: 'center',
     justifyContent: 'center'
   },
