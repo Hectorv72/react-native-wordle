@@ -1,10 +1,11 @@
+import React from 'react'
+import WordVerifyColors from '../models/enum/WordVerifyColors'
 import { Text, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
-import React from 'react'
 
-const LetterBlock = ({ letter = '', }) => {
+const LetterBlock = ({ letter = '', typeColor = null }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, typeColor && styles[typeColor]]}>
       <Text style={styles.text}>{letter}</Text>
     </View>
   )
@@ -26,4 +27,7 @@ const styles = ScaledSheet.create({
   text: {
     fontSize: '20@s'
   },
+  correct: WordVerifyColors.CORRECT,
+  good: WordVerifyColors.GOOD,
+  incorrect: WordVerifyColors.INCORRECT,
 })
