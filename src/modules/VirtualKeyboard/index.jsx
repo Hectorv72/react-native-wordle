@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { View, Dimensions } from 'react-native'
-import { ScaledSheet, scale } from 'react-native-size-matters'
-import { makeKeyboard } from './helpers/KeyboardHelpers'
 import KeyboardContext from './contexts/KeyboardContext'
+import { View } from 'react-native'
+import { makeKeyboard } from './helpers/KeyboardHelpers'
 
-export const defaultContextData = {
-  writted: '', // texto escrito con el virtualkeyboard
-  limit: 5,
-  darkened: [], // botones que tienen fondo oscuro
-  success: [] // botones que tienen fondo de color
-}
+const VirtualKeyboard = ({ onWrite = null, limit = 5, buttonsSettings = {} }) => {
 
-const VirtualKeyboard = ({ onWrite = null }) => {
+  const defaultContextData = {
+    writted: '', // texto escrito con el virtualkeyboard
+    limit,
+    buttons: buttonsSettings
+    /** buttons props
+     * {
+     *   A : {
+     *     background: string ( rgb o hexacolor )
+     *     disabled: boolean
+     *   }
+     * }
+     */
+  }
+
   const keys = makeKeyboard()
   const [data, setData] = useState(defaultContextData)
 
@@ -19,9 +26,13 @@ const VirtualKeyboard = ({ onWrite = null }) => {
     onWrite && onWrite(data.writted)
   }, [data.writted])
 
+  useEffect(() => {
+    setData(prev => ({ ...prev, buttons: buttonsSettings }))
+  }, [buttonsSettings])
+
   return (
     <KeyboardContext.Provider value={{ data, setData }}>
-      <View style={styles.container}>
+      <View>
         {keys}
       </View>
     </KeyboardContext.Provider>
@@ -29,11 +40,3 @@ const VirtualKeyboard = ({ onWrite = null }) => {
 }
 
 export default VirtualKeyboard
-
-const styles = ScaledSheet.create({
-  container: {
-    // position: 'absolute',
-    // top: Dimensions.get('window').height - scale(220),
-    // alignSelf: 'center'
-  },
-})

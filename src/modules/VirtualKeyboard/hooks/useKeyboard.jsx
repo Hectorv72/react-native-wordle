@@ -3,7 +3,7 @@ import KeyboardContext from "../contexts/KeyboardContext"
 
 export default () => {
   const { data, setData } = useContext(KeyboardContext)
-  const { writted, darkened, success, limit } = data
+  const { writted, buttons, limit } = data
 
   const setWrittenText = (text) => {
     if (writted.length < limit) {
@@ -21,5 +21,5 @@ export default () => {
     }
   }
 
-  return { writted, darkened, success, limit, setWrittenText, eraseWrittenText }
+  return { writted, buttons, limit, setWrittenText, eraseWrittenText }
 }
