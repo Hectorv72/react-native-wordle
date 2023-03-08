@@ -7,7 +7,7 @@ export default () => {
 
   const setWrittenText = (text) => {
     if (writted.length < limit) {
-      const newData = { ...data }
+      const newData = Object.assign({}, data)
       newData.writted = text
       setData(newData)
     }
@@ -15,7 +15,7 @@ export default () => {
 
   const eraseWrittenText = () => {
     if (writted.length > 0) {
-      const newData = { ...data }
+      const newData = Object.assign({}, data)
       newData.writted = writted.slice(0, -1)
       setData(newData)
     }
