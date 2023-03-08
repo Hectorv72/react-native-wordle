@@ -16,6 +16,8 @@ const Game = () => {
     // }, 300)
   }, [])
 
+  const handleSetWord = (word) => setWord(word)
+
   return (
     <View style={styles.block}>
       <View style={styles.rows}>
@@ -27,7 +29,7 @@ const Game = () => {
         <WordRow />
       </View>
       <View>
-        <VirtualKeyboard onWrite={(text) => setWord(text)} buttonsSettings={settings} />
+        <VirtualKeyboard onWrite={handleSetWord} buttonsSettings={settings} />
         <View style={styles.buttonContainer}>
           <Button onPress={() => setVerify(true)} title={'verificar'} />
         </View>
@@ -43,7 +45,7 @@ const styles = ScaledSheet.create({
     gap: '10@s'
   },
   block: {
-    marginTop: '20@s',
+    justifyContent: 'center',
     flex: 1,
     gap: '20@s'
   },
