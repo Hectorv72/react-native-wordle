@@ -9,7 +9,6 @@ export default () => {
   const verifyWord = () => {
     updateGame({ verify: true })
     if (game.blocks[game.attemp - 1].text !== game.solution) {
-      console.log('hola')
       setTimeout(nextTurn, 300)
     }
   }

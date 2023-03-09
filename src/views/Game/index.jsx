@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import GameContext from './context/GameContext'
-import AnswerBlocks from './layouts/AnswerBlocks'
+import AnswerBlocks from './components/AnswerBlocks'
 import ButtonVerify from './components/ButtonVerify'
 import { View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
@@ -14,6 +14,7 @@ const Game = () => {
     keyboard: {},
     attemp: 1,
     limit_attempts: 6,
+    limitWords: 5,
     game_over: false,
     blocks: generateBlocksAttribute(6)
   })

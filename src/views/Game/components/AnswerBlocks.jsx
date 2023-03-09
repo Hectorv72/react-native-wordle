@@ -1,17 +1,20 @@
 import React from 'react'
-import WordRow from '../components/WordRow'
+import WordRow from './WordRow'
 import { View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
+import useGame from '../hooks/useGame'
 
 const AnswerBlocks = () => {
+  const { game } = useGame()
+  const { blocks } = game
   return (
     <View style={styles.rows}>
-      <WordRow attemp={1} />
-      <WordRow attemp={2} />
-      <WordRow attemp={3} />
-      <WordRow attemp={4} />
-      <WordRow attemp={5} />
-      <WordRow attemp={6} />
+      {
+        blocks.map(
+          block =>
+            <WordRow key={`wordrow-${block.attemp}`} attemp={block.attemp} />
+        )
+      }
     </View>
   )
 }
