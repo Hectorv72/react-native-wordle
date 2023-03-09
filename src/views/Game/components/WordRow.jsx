@@ -17,13 +17,17 @@ const WordRow = ({ attemp }) => {
         letter,
         color: letter === game.solution[position] ? LetterBlockTypes.CORRECT : LetterBlockTypes.INCORRECT
       })
-    )
+    );
+
+    const letterCorrects = blockColors
+      .filter(block => block.color === LetterBlockTypes.CORRECT)
+      .map(block => block.letter)
 
     const blockIncorrect = blockColors.filter(block => block.color === LetterBlockTypes.INCORRECT)
 
     blockIncorrect.forEach(
       ({ letter, position }) => {
-        if (game.solution.includes(letter)) {
+        if (game.solution.includes(letter) && !letterCorrects.includes(letter)) {
           blockColors[position].color = LetterBlockTypes.GOOD
         }
       }
