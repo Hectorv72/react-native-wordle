@@ -1,37 +1,38 @@
-import { Dimensions, Text, View } from 'react-native'
-import { ScaledSheet, scale } from 'react-native-size-matters'
-import React, { useEffect, useState } from 'react'
-import VirtualKeyboard from '../../modules/VirtualKeyboard'
-import WordRow from './components/WordRow'
-import { Button } from '@react-native-material/core'
+import React, { useState } from 'react'
+import GameContext from './context/GameContext'
+import AnswerBlocks from './layouts/AnswerBlocks'
+import ButtonVerify from './components/ButtonVerify'
+import { View } from 'react-native'
+import { ScaledSheet } from 'react-native-size-matters'
+import generateBlocksAttribute from './helpers/generateBlocksAttribute'
+import GameKeyboard from './components/GameKeyboard'
 
 const Game = () => {
-  const [word, setWord] = useState('')
-  const [verify, setVerify] = useState(false)
-  const [settings, setSettings] = useState({})
+  const generateDefaultGame = () => ({
+    solution: 'BUENO',
+    verify: false,
+    keyboard: {},
+    attemp: 1,
+    limit_attempts: 6,
+    game_over: false,
+    blocks: generateBlocksAttribute(6)
+  })
 
-  useEffect(() => {
-    setTimeout(() => {
-      setSettings({ U: { background: '#32a84c' }, B: { disabled: true } })
-    }, 300)
-  }, [])
+  const [game, setGame] = useState(generateDefaultGame())
+  const context = {
+    game,
+    setGame
+  }
 
   return (
     <View style={styles.block}>
-      <View style={styles.rows}>
-        <WordRow word={word} solution='BUENO' verify={verify} />
-        <WordRow />
-        <WordRow />
-        <WordRow />
-        <WordRow />
-        <WordRow />
-      </View>
-      <View>
-        <VirtualKeyboard written={word} setWritten={setWord} buttonsSettings={settings} />
-        <View style={styles.buttonContainer}>
-          <Button onPress={() => setVerify(true)} title={'verificar'} />
+      <GameContext.Provider value={context}>
+        <AnswerBlocks />
+        <View>
+          <GameKeyboard />
+          <ButtonVerify />
         </View>
-      </View>
+      </GameContext.Provider>
     </View>
   )
 }
@@ -39,24 +40,9 @@ const Game = () => {
 export default Game
 
 const styles = ScaledSheet.create({
-  rows: {
-    gap: '10@s'
-  },
   block: {
     justifyContent: 'center',
     flex: 1,
     gap: '20@s'
-  },
-  buttonContainer: {
-    marginVertical: '10@s',
-    alignSelf: 'center',
-    width: Dimensions.get('window').width - scale(160)
-  },
-  container: {
-    width: '230@s',
-    flexDirection: 'row',
-    // backgroundColor: 'red',
-    justifyContent: 'space-between',
-    alignSelf: 'center'
   }
 })

@@ -11,7 +11,7 @@ const Router = () => {
 
   const views = [
     { name: "main", component: Tabs, options: { title: app.appName } },
-    { name: "game", component: Game, options: { title: 'Wordle Game' } },
+    { name: "game", component: Game, options: { headerShown: false } },
     // { name: "", component: Component, options: {} },
   ]
 

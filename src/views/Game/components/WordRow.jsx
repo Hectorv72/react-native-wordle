@@ -1,44 +1,48 @@
 import React, { useEffect, useState } from 'react'
+import LetterBlockTypes from '../models/enum/LetterBlockTypes'
 import LetterBlock from '../layouts/LetterBlock'
+import useGame from '../hooks/useGame'
 import { View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
-import LetterBlockTypes from '../models/enum/LetterBlockTypes'
 
-const WordRow = ({ word = '', solution = '', verify = false }) => {
+const WordRow = ({ attemp }) => {
+  const { game } = useGame()
   const [colors, setColors] = useState([])
 
   const handleVerifyWord = () => {
-    const blockColors = []
-    for (let position in word) {
-      blockColors.push({
-        position: position,
-        letter: word[position],
-        color: word[position] === solution[position] ? LetterBlockTypes.CORRECT : LetterBlockTypes.INCORRECT
+    const text = game.blocks[attemp - 1].text
+    const blockColors = text.split('').map(
+      (letter, position) => ({
+        position,
+        letter,
+        color: letter === game.solution[position] ? LetterBlockTypes.CORRECT : LetterBlockTypes.INCORRECT
       })
-    }
+    )
 
-    for (let block of blockColors.filter(block => block.color === LetterBlockTypes.INCORRECT)) {
-      if (solution.includes(block.letter)) {
-        blockColors[block.position].color = LetterBlockTypes.GOOD
+    const blockIncorrect = blockColors.filter(block => block.color === LetterBlockTypes.INCORRECT)
+
+    blockIncorrect.forEach(
+      ({ letter, position }) => {
+        if (game.solution.includes(letter)) {
+          blockColors[position].color = LetterBlockTypes.GOOD
+        }
       }
-    }
+    )
 
     setColors(blockColors)
   }
 
   useEffect(() => {
-    if (verify) {
-      handleVerifyWord()
-    }
-  }, [verify])
+    (game.verify && game.attemp === attemp) && handleVerifyWord()
+  }, [game.verify])
 
   return (
     <View style={styles.container}>
-      <LetterBlock letter={word[0] || ''} typeColor={colors[0]?.color} />
-      <LetterBlock letter={word[1] || ''} typeColor={colors[1]?.color} />
-      <LetterBlock letter={word[2] || ''} typeColor={colors[2]?.color} />
-      <LetterBlock letter={word[3] || ''} typeColor={colors[3]?.color} />
-      <LetterBlock letter={word[4] || ''} typeColor={colors[4]?.color} />
+      <LetterBlock letter={game.blocks[attemp - 1].text[0]} typeColor={colors[0]?.color} />
+      <LetterBlock letter={game.blocks[attemp - 1].text[1]} typeColor={colors[1]?.color} />
+      <LetterBlock letter={game.blocks[attemp - 1].text[2]} typeColor={colors[2]?.color} />
+      <LetterBlock letter={game.blocks[attemp - 1].text[3]} typeColor={colors[3]?.color} />
+      <LetterBlock letter={game.blocks[attemp - 1].text[4]} typeColor={colors[4]?.color} />
     </View>
   )
 }
