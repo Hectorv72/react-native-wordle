@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import LetterBlockTypes from '../models/enum/LetterBlockTypes'
-import LetterBlock from '../layouts/LetterBlock'
 import useGame from '../hooks/useGame'
+import WordColors from '../models/enum/WordColors'
+import LetterBlock from '../layouts/LetterBlock'
+import LetterBlockTypes from '../models/enum/LetterBlockTypes'
 import { View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
 const WordRow = ({ attemp }) => {
-  const { game } = useGame()
+  const { game, changeKeyboardColor } = useGame()
   const [colors, setColors] = useState([])
+
+  const handleChangeKeyboardColor = (blocks) => {
+    const keyboardColors = blocks.map(({ letter, color }) => {
+      const typeColor = color.toUpperCase()
+      return { letter, color: WordColors[typeColor] }
+    })
+    changeKeyboardColor(keyboardColors)
+  }
 
   const handleVerifyWord = () => {
     const text = game.blocks[attemp - 1].text
@@ -33,6 +42,7 @@ const WordRow = ({ attemp }) => {
       }
     )
 
+    handleChangeKeyboardColor(blockColors)
     setColors(blockColors)
   }
 
