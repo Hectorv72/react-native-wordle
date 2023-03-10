@@ -1,5 +1,5 @@
 import GameContext from "../context/GameContext"
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import WordColors from "../models/enum/WordColors"
 
 export default () => {
@@ -7,15 +7,16 @@ export default () => {
 
   const updateGame = (update) => setGame(prev => ({ ...prev, ...update }))
 
-  const nextTurn = () => {
-    (game.attemp < game.limit_attempts) && updateGame({ verify: false, attemp: game.attemp + 1 })
-  }
+  const nextTurn = () => updateGame({ verify: false, attemp: game.attemp + 1 })
 
   const verifyWord = () => {
     updateGame({ verify: true })
     if (game.blocks[game.attemp - 1].text !== game.solution) {
-      setTimeout(nextTurn, 300)
+      if (game.attemp < game.limitAttempts) {
+        return setTimeout(() => nextTurn(), 300)
+      }
     }
+    updateGame({ gameOver: true })
   }
 
   const updateTextBlock = (position, text) => {

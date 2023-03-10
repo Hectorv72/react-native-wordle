@@ -1,21 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import GameContext from './context/GameContext'
 import AnswerBlocks from './components/AnswerBlocks'
 import ButtonVerify from './components/ButtonVerify'
-import { View } from 'react-native'
-import { ScaledSheet } from 'react-native-size-matters'
-import generateBlocksAttribute from './helpers/generateBlocksAttribute'
 import GameKeyboard from './components/GameKeyboard'
+import generateBlocksAttribute from './helpers/generateBlocksAttribute'
+import { Alert, View } from 'react-native'
+import { ScaledSheet } from 'react-native-size-matters'
 
-const Game = () => {
+const Game = ({ navigation }) => {
   const generateDefaultGame = () => ({
     solution: 'BUENO',
     verify: false,
     keyboard: {},
     attemp: 1,
-    limit_attempts: 6,
+    limitAttempts: 6,
     limitWords: 5,
-    game_over: false,
+    gameOver: false,
     blocks: generateBlocksAttribute(6)
   })
 
@@ -25,7 +25,24 @@ const Game = () => {
     setGame
   }
 
+  useEffect(() => {
+    if (game.gameOver) {
+      Alert.alert('GAME OVER', '¿Quieres volver a jugar?', [
+        {
+          text: 'SI',
+          onPress: () => setGame(generateDefaultGame()),
+        },
+        {
+          text: 'NO',
+          onPress: () => navigation.navigate('main'),
+          style: 'cancel'
+        }
+      ])
+    }
+  }, [game.gameOver])
+
   return (
+    !game.gameOver &&
     <View style={styles.block}>
       <GameContext.Provider value={context}>
         <AnswerBlocks />

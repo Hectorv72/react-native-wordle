@@ -17,7 +17,7 @@ const ButtonVerify = () => {
 
   return (
     <View style={styles.container}>
-      <Button disabled={disabled} onPress={verifyWord} title={'verificar'} />
+      <Button disabled={disabled || game.verify} onPress={verifyWord} title={'verificar'} />
     </View>
   )
 }
