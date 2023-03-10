@@ -15,6 +15,7 @@ const Game = ({ navigation }) => {
     attemp: 1,
     limitAttempts: 6,
     limitWords: 5,
+    delayAnimation: 200,
     gameOver: false,
     blocks: generateBlocksAttribute(6)
   })

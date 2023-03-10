@@ -11,12 +11,14 @@ export default () => {
 
   const verifyWord = () => {
     updateGame({ verify: true })
+    const time = game.delayAnimation * (game.limitAttempts + 1)
+
     if (game.blocks[game.attemp - 1].text !== game.solution) {
       if (game.attemp < game.limitAttempts) {
-        return setTimeout(() => nextTurn(), 300)
+        return setTimeout(() => nextTurn(), time)
       }
     }
-    updateGame({ gameOver: true })
+    setTimeout(() => updateGame({ gameOver: true }), time + 1000)
   }
 
   const updateTextBlock = (position, text) => {
