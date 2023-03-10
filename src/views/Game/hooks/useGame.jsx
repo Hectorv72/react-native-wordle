@@ -1,6 +1,6 @@
 import GameContext from "../context/GameContext"
 import { useContext } from "react"
-import WordColors from "../models/enum/WordColors"
+import WordColors from "../../../models/enum/WordColors"
 
 export default () => {
   const { game, setGame } = useContext(GameContext)

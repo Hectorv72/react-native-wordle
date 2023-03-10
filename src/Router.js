@@ -10,7 +10,7 @@ const Router = () => {
   const { Navigator, Screen } = createNativeStackNavigator();
 
   const views = [
-    { name: "main", component: Home, options: { title: app.appName } },
+    { name: "main", component: Home, options: { headerShown: false } },
     { name: "game", component: Game, options: { headerShown: false } },
     // { name: "", component: Component, options: {} },
   ]

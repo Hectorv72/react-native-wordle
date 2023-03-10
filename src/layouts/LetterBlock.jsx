@@ -1,6 +1,6 @@
 import React from 'react'
 import WordVerifyColors from '../models/enum/WordVerifyColors'
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 import { Motion } from '@legendapp/motion'
 
