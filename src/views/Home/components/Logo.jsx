@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { FlatList, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { ScaledSheet } from 'react-native-size-matters'
 import LetterBlockTypes from '../../../models/enum/LetterBlockTypes'
@@ -14,26 +14,23 @@ const Logo = () => {
     LetterBlockTypes.INCORRECT,
   ]
 
+  const renderItem = ({ item, index }) =>
+    <View style={styles.block}>
+      <LetterBlock letter={item} typeColor={animate && selectRandomElement(listTypes)} delay={(index + 1) * 200} />
+    </View>
+
   useEffect(() => {
-    setTimeout(() => setAnimate(true), 2000)
+    setTimeout(() => setAnimate(true), 3000)
   }, [])
 
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-        <LetterBlock letter={'W'} typeColor={animate && selectRandomElement(listTypes)} delay={1 * 200} />
-        <LetterBlock letter={'O'} typeColor={animate && selectRandomElement(listTypes)} delay={2 * 200} />
-        <LetterBlock letter={'R'} typeColor={animate && selectRandomElement(listTypes)} delay={3 * 200} />
-        <LetterBlock letter={'D'} typeColor={animate && selectRandomElement(listTypes)} delay={4 * 200} />
-        <LetterBlock letter={'L'} typeColor={animate && selectRandomElement(listTypes)} delay={5 * 200} />
-        <LetterBlock letter={'E'} typeColor={animate && selectRandomElement(listTypes)} delay={6 * 200} />
-      </View>
-      <View style={styles.row}>
-        <LetterBlock letter={'G'} typeColor={animate && selectRandomElement(listTypes)} delay={7 * 200} />
-        <LetterBlock letter={'A'} typeColor={animate && selectRandomElement(listTypes)} delay={8 * 200} />
-        <LetterBlock letter={'M'} typeColor={animate && selectRandomElement(listTypes)} delay={9 * 200} />
-        <LetterBlock letter={'E'} typeColor={animate && selectRandomElement(listTypes)} delay={10 * 200} />
-      </View>
+      <FlatList
+        numColumns={6}
+        data={'WORDLEGAME'.split('')}
+        renderItem={renderItem}
+        contentContainerStyle={styles.row}
+      />
     </View>
   )
 }
@@ -42,15 +39,14 @@ export default Logo
 
 const styles = ScaledSheet.create({
   container: {
-    alignContent: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  block: {
+    marginHorizontal: '5@s',
+    marginBottom: '5@s',
   },
   row: {
-    width: '230@s',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    // justifyContent: 'space-between',
-    gap: '8@s',
-    alignSelf: 'center',
-    marginBottom: '8@s'
+    alignItems: 'center'
   }
 })
