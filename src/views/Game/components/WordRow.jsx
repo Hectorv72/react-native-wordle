@@ -3,7 +3,7 @@ import useGame from '../hooks/useGame'
 import WordColors from '../models/enum/WordColors'
 import LetterBlock from '../layouts/LetterBlock'
 import LetterBlockTypes from '../models/enum/LetterBlockTypes'
-import { View } from 'react-native'
+import { FlatList, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
 const WordRow = ({ attemp }) => {
@@ -51,13 +51,19 @@ const WordRow = ({ attemp }) => {
     (game.verify && game.attemp === attemp) && handleVerifyWord()
   }, [game.verify])
 
+  const renderItem = ({ index }) =>
+    <View style={styles.block}>
+      <LetterBlock letter={game.blocks[attemp - 1].text[index]} typeColor={colors[index]?.color} delay={(index + 1) * game.delayAnimation} />
+    </View>
+
   return (
     <View style={styles.container}>
-      <LetterBlock letter={game.blocks[attemp - 1].text[0]} typeColor={colors[0]?.color} position={1} delay={1 * game.delayAnimation} />
-      <LetterBlock letter={game.blocks[attemp - 1].text[1]} typeColor={colors[1]?.color} position={2} delay={2 * game.delayAnimation} />
-      <LetterBlock letter={game.blocks[attemp - 1].text[2]} typeColor={colors[2]?.color} position={3} delay={3 * game.delayAnimation} />
-      <LetterBlock letter={game.blocks[attemp - 1].text[3]} typeColor={colors[3]?.color} position={4} delay={4 * game.delayAnimation} />
-      <LetterBlock letter={game.blocks[attemp - 1].text[4]} typeColor={colors[4]?.color} position={5} delay={5 * game.delayAnimation} />
+      <FlatList
+        horizontal
+        data={(new Array(game.limitWords))}
+        renderItem={renderItem}
+        contentContainerStyle={styles.row}
+      />
     </View>
   )
 }
@@ -66,9 +72,12 @@ export default WordRow
 
 const styles = ScaledSheet.create({
   container: {
-    width: '230@s',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignSelf: 'center'
+    alignItems: 'center'
+  },
+  row: {
+    justifyContent: 'center'
+  },
+  block: {
+    marginHorizontal: '5@s'
   }
 })
