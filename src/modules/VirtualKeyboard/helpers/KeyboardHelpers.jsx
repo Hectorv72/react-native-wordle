@@ -1,10 +1,10 @@
 import kbStyles from "../styles"
 import KeyButton from "../components/KeyButton"
 import KeyButtonIcon from "../components/KeyButtonIcon"
-import { View } from "react-native"
+import { FlatList, View } from "react-native"
 import { FontAwesome5, Ionicons } from "@expo/vector-icons"
 
-const makeKey = (letter) => {
+const makeKey = ({ item: letter }) => {
   if (letter === 'eraser') {
     return <KeyButtonIcon key={'keyboard-eraser'} desing={FontAwesome5} icon='eraser' />
   } else if (letter === 'send') {
@@ -15,8 +15,9 @@ const makeKey = (letter) => {
 }
 
 const makeRow = (letters = []) => {
-  const list = letters.map(letter => makeKey(letter))
-  return (<View key={`row-keyboard-${letters.toString()}`} style={kbStyles.keyboardRow}>{list}</View>)
+  return (
+    <FlatList horizontal data={letters} renderItem={makeKey} />
+  )
 }
 
 export const makeKeyboard = () => {
