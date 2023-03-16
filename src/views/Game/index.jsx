@@ -6,10 +6,12 @@ import GameKeyboard from './components/GameKeyboard'
 import generateBlocksAttribute from './helpers/generateBlocksAttribute'
 import { Alert, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
+import getItemAleatory from '../../helpers/getItemAleatory'
+import WordsList from './utilities/WordsList'
 
 const Game = ({ navigation }) => {
   const generateDefaultGame = () => ({
-    solution: 'BUENO',
+    solution: getItemAleatory(WordsList),
     verify: false,
     keyboard: {},
     attemp: 1,
