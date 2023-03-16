@@ -16,7 +16,7 @@ const makeKey = ({ item: letter }) => {
 
 const makeRow = (letters = []) => {
   return (
-    <FlatList horizontal data={letters} renderItem={makeKey} />
+    <FlatList key={`row-keys-${letters.toString()}`} horizontal data={letters} renderItem={makeKey} />
   )
 }
 
