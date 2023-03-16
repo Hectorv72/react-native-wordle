@@ -59,10 +59,9 @@ const WordRow = ({ attemp }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        horizontal
+        numColumns={game.limitWords}
         data={(new Array(game.limitWords))}
         renderItem={renderItem}
-        contentContainerStyle={styles.row}
       />
     </View>
   )
@@ -73,9 +72,6 @@ export default WordRow
 const styles = ScaledSheet.create({
   container: {
     alignItems: 'center'
-  },
-  row: {
-    justifyContent: 'center'
   },
   block: {
     marginHorizontal: '5@s'

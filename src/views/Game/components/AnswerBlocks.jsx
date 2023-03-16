@@ -9,7 +9,7 @@ const AnswerBlocks = () => {
   const { blocks } = game
 
   const renderItem = ({ item }) =>
-    <View style={{ marginVertical: 5 }}>
+    <View style={styles.rows}>
       <WordRow key={`wordrow-${item.attemp}`} attemp={item.attemp} />
     </View>
 
@@ -17,7 +17,7 @@ const AnswerBlocks = () => {
     <FlatList
       data={blocks}
       renderItem={renderItem}
-      contentContainerStyle={{ marginTop: 100 }}
+      contentContainerStyle={styles.list}
     />
   )
 }
@@ -26,6 +26,10 @@ export default AnswerBlocks
 
 const styles = ScaledSheet.create({
   rows: {
-    gap: '10@s'
+    marginVertical: '5@s'
   },
+  list: {
+    height: '100%',
+    justifyContent: 'center',
+  }
 })
