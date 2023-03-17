@@ -3,6 +3,7 @@ import useGame from '../hooks/useGame'
 import { Button } from '@react-native-material/core'
 import { Dimensions, View } from 'react-native'
 import { ScaledSheet, scale } from 'react-native-size-matters'
+import WordsList from '../utilities/WordsList'
 
 const ButtonVerify = () => {
   const { verifyWord, game } = useGame()
@@ -12,7 +13,7 @@ const ButtonVerify = () => {
   const textCount = blocks[attemp - 1].text.length
 
   useEffect(() => {
-    setDisabled(textCount !== limitWords)
+    setDisabled(textCount !== limitWords || !WordsList.includes(blocks[attemp - 1].text))
   }, [textCount])
 
   return (

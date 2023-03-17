@@ -34,7 +34,7 @@ const VirtualKeyboard = ({ written, setWritten, limit = 5, buttonsSettings = {} 
 
   return (
     <KeyboardContext.Provider value={context}>
-      <View>
+      <View style={{ alignItems: 'center', gap: 5 }}>
         {keys}
       </View>
     </KeyboardContext.Provider>

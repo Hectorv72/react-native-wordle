@@ -33,7 +33,6 @@ export default () => {
     const keysModifiables = Object.entries(game.keyboard)
       .filter(([_, value]) => value.background !== WordColors.CORRECT)
       .map(([_, value]) => value)
-    console.log(keysModifiables)
 
     const keysColored = colors.filter(({ letter }) => !keysModifiables.includes(letter))
     keysColored.forEach(({ letter, color }) => { keyboard[letter] = { background: color } })
