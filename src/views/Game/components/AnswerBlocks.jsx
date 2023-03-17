@@ -1,6 +1,6 @@
 import React from 'react'
 import WordRow from './WordRow'
-import { FlatList, View } from 'react-native'
+import { FlatList, View, Text } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 import useGame from '../hooks/useGame'
 
@@ -14,11 +14,14 @@ const AnswerBlocks = () => {
     </View>
 
   return (
-    <FlatList
-      data={blocks}
-      renderItem={renderItem}
-      contentContainerStyle={styles.list}
-    />
+    <>
+      <FlatList
+        data={blocks}
+        renderItem={renderItem}
+        contentContainerStyle={styles.list}
+      />
+      <Text>{game.solution}</Text>
+    </>
   )
 }
 
