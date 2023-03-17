@@ -1,21 +1,19 @@
 import { ScaledSheet } from 'react-native-size-matters'
-import { Text, View } from 'react-native'
+import { BackHandler, View } from 'react-native'
 import React from 'react'
-import { ListItem } from '@react-native-material/core';
+import { Button } from '@react-native-material/core';
 import Logo from './components/Logo';
 
 const Home = ({ navigation }) => {
 
-  const listTools = [
-    { label: 'Game', route: 'game' }
-  ];
-
   return (
     <View style={styles.container}>
       <Logo />
-      {
-        listTools.map((tool, index) => <ListItem key={`tool-item-${0}`} title={tool.label} onPressOut={() => navigation.navigate(tool.route)} />)
-      }
+      <View style={styles.buttonsContainer}>
+        <Button titleStyle={styles.font} title='COMENZAR' style={styles.button} onPress={() => navigation.navigate('game')} />
+        <Button titleStyle={styles.font} title='PUNTUACIONES' style={styles.button} />
+        <Button titleStyle={styles.font} title='SALIR' style={styles.button} onPress={() => BackHandler.exitApp()} />
+      </View>
     </View>
   )
 }
@@ -26,8 +24,18 @@ const styles = ScaledSheet.create({
   container: {
     // paddingTop: Constants.statusBarHeight,
     flex: 1,
-    marginTop: '80@s'
-    // alignContent: 'center',
-    // justifyContent: 'center',
+    gap: '60@s',
+    marginTop: '150@s'
   },
+  buttonsContainer: {
+    gap: '10@s'
+  },
+  button: {
+    color: 'red',
+    alignSelf: 'center',
+    width: '150@s'
+  },
+  font: {
+    fontSize: '14@s'
+  }
 });

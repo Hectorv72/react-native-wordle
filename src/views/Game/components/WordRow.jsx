@@ -3,7 +3,7 @@ import useGame from '../hooks/useGame'
 import WordColors from '../../../models/enum/WordColors'
 import LetterBlock from '../../../layouts/LetterBlock'
 import LetterBlockTypes from '../../../models/enum/LetterBlockTypes'
-import { View } from 'react-native'
+import { View, FlatList } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
 const WordRow = ({ attemp }) => {
